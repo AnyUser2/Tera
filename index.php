@@ -11,7 +11,24 @@ $sql->execute();
 
 $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+$sql = $con->prepare("SELECT MAX(price) FROM products");
+
+$sql->execute();
+
+$maxValue = $sql->fetchColumn();
+
+$sql = $con->prepare("SELECT MIN(price) FROM products");
+
+$sql->execute();
+
+$minValue = $sql->fetchColumn();
+
 ?>
+
+<script>
+	var minValue =parseInt('<?php echo $minValue ?>')
+	var maxValue =parseInt('<?php echo $maxValue ?>')
+</script>
 
 <!doctype html>
 <html lang="en">
@@ -150,7 +167,7 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 							<div class="category-cover">
 								<img src="img/banner/category-banner.png" alt="category-banner"/>
 							</div>
-							<div class="title-category text-capitalize">women</div>
+							<div class="title-category text-capitalize">¡Bienvenido!</div>
 							<div class="category-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sagittis, magna et euismod auctor, mauris ipsum interdum risus, a varius augue lacus id diam. Mauris maximus, ipsum at gravida sodales, purus tellus tempor eros, a feugiat elit odio in nunc.</div>
 						</div>
 						<header class="product-grid-header d-flex d-xs-block d-sm-flex d-lg-flex w-100 float-left">
@@ -206,25 +223,16 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 												<div class="image zoom">
 													<a href="product-details.html">
 														<img src="<?php echo $image; ?>" alt="01"/>
-														<img src="img/products/02.jpg" alt="02" class="second_image img-responsive"/>							
+														<img src="<?php echo $image; ?>" alt="02" class="second_image img-responsive"/>							
 													</a>
 												</div>
 												<div class="thumb-description">
 													<div class="caption">
 														<h4 class="product-title text-capitalize"><a href="product-details.html"><?php echo $row['title']; ?></a></h4>
 													</div>
-													<div class="rating">
-														<div class="product-ratings d-inline-block align-middle">
-															<span class="fa fa-stack"><i class="material-icons">star</i></span>
-							   								<span class="fa fa-stack"><i class="material-icons">star</i></span>
-							   								<span class="fa fa-stack"><i class="material-icons">star</i></span>
-							  								<span class="fa fa-stack"><i class="material-icons off">star</i></span>
-							  								<span class="fa fa-stack"><i class="material-icons off">star</i></span>							
-														</div>
-													</div>
 													<div class="price">
 														<div class="regular-price">$<?php echo number_format($row['price'], 0, '.', ','); ?></div>
-														<div class="old-price">$150.00</div>
+														<div class="old-price">$<?php echo $minValue; ?></div>
 													</div>
 													<div class="button-wrapper">
 														<div class="button-group text-center">
@@ -246,32 +254,29 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 							<div class="tab-pane fade list text-left" id="list" role="tabpanel">
 										
+
+							<?php foreach ($result as $row) {
+											
+											$id = $row['id'];
+											$image = "img/products/" . $id . "/main.jpg";
+	
+											if (!file_exists($image)) {
+												$image = "img/no-photo.jpg";
+											}
+												
+										?>
+
 								<div class="product-layouts">
 										<div class="product-thumb row">
 											<div class="image zoom col-xs-12 col-sm-5 col-md-4">
 												<a href="product-details.html" class="d-block position-relative">
-													<img src="img/products/01.jpg" alt="01"/>
-													<img src="img/products/02.jpg" alt="02" class="second_image img-responsive"/>
+													<img src="<?php echo $image; ?>" alt="01"/>
+													<img src="<?php echo $image; ?>" alt="02" class="second_image img-responsive"/>	
 												</a>
-												<ul class="countdown countdown4 text-center">
-													<li><span class="days">00</span><p class="days_text">Days</p></li>
-										  			<li><span class="hours">00</span><p class="hours_text">Hours</p></li>
-										  			<li><span class="minutes">00</span><p class="minutes_text">Minutes</p></li>
-										  			<li><span class="seconds">00</span><p class="seconds_text">Seconds</p></li>
-												</ul>
 											</div>
 											<div class="thumb-description col-xs-12 col-sm-7 col-md-8 position-static text-left">
 												<div class="caption">
 													<h4 class="product-title text-capitalize"><a href="product-details.html">aliquam quaerat voluptatem</a></h4>
-												</div>
-												<div class="rating mb-10">
-													<div class="product-ratings d-inline-block align-middle">
-														<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   			<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   			<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											  			<span class="fa fa-stack"><i class="material-icons off">star</i></span>
-											  			<span class="fa fa-stack"><i class="material-icons off">star</i></span>											
-													</div>
 												</div>
 												<div class="description">
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus arcu turpis, quis sagittis orci dictum non. Etiam id eleifend erat. Donec sit amet nisl id nisi laoreet viverra in ac nibh.											</div>
@@ -303,12 +308,26 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 												</div>
 											</div>
 										</div>
+
+										<?php }?>
 									</div>
 
-								
+
 
 
 							<div class="tab-pane fade sort text-left" id="sort-view" role="tabpanel">
+
+
+							<?php foreach ($result as $row) {
+											
+											$id = $row['id'];
+											$image = "img/products/" . $id . "/main.jpg";
+	
+											if (!file_exists($image)) {
+												$image = "img/no-photo.jpg";
+											}
+												
+										?>
 
 										<div class="product-layouts">
 											<div class="product-thumb row">
@@ -323,15 +342,7 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a href="product-details.html">suscipit laboriosam nisi</a></h4>
 														</div>
-														<div class="rating mb-10">
-															<div class="product-ratings d-inline-block align-middle">
-																<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   					<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   					<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											  					<span class="fa fa-stack"><i class="material-icons off">star</i></span>
-											  					<span class="fa fa-stack"><i class="material-icons off">star</i></span>											   
-															</div>
-														</div>
+
 													<div class="description mb-10">
 														Duis tincidunt ante urna, sit amet vestibulum felis placerat in. Duis a tortor et odio consequat congue. Mauris euismod augue tempor, sagittis nisl sed, pretium purus.											</div>
 													</div>
@@ -352,6 +363,9 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 												</div>
 											</div>
 										</div>
+
+										<?php }?>
+
 									</div>
 								</div>
 								<div class="pagination-wrapper float-left w-100">
@@ -405,7 +419,7 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 												<div class="price-inner">
 					  								<label for="amount">Price range:</label>
 					  								<input type="text" id="amount" readonly style="border:0; font-weight:bold; background:none;">
-					  								<div id="slider-range"></div>
+					  								<div id="slider-range" min="20"></div>
 												</div>
 											</div>
 										</div>
@@ -473,146 +487,22 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 											<h3 class="widget-title text-capitalize">sale products</h3>
 											<div class="products owl-carousel">
 												<div class="sale-col">
-													<div class="product-layouts">
-														<div class="product-thumb">
-															<div class="image col-sm-4 float-left">
-																<a href="#">
-																	<img src="img/products/01.jpg" alt="01"/>										
-																</a>									
-															</div>
-															<div class="thumb-description col-sm-8 text-left float-left">
-																<div class="caption">
-																	<h4 class="product-title text-capitalize"><a href="product-details.html">aliquam quaerat voluptatem</a></h4>
-																</div>
-																<div class="rating">
-																	<div class="product-ratings d-inline-block align-middle">
-																		<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											  							<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   							<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											  							<span class="fa fa-stack"><i class="material-icons off">star</i></span>
-											  							<span class="fa fa-stack"><i class="material-icons off">star</i></span>							
-																	</div>
-																</div>
-																<div class="price">
-																	<div class="regular-price">$100.00</div>
-																	<div class="old-price">$150.00</div>
-																</div>
-																<div class="button-wrapper">
-																	<div class="button-group text-center">
-																		<button type="button" class="btn btn-primary btn-cart" data-target="#cart-pop" data-toggle="modal"><i class="material-icons">shopping_cart</i><span>Add to cart</span></button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
 													
 							<div class="product-layouts">
 								<div class="product-thumb">
 									<div class="image col-sm-4 float-left">
-										<a href="#">
-											<img src="img/products/02.jpg" alt="01"/>										</a>									</div>
-									<div class="thumb-description col-sm-8 text-left float-left">
-										<div class="caption">
-											<h4 class="product-title text-capitalize"><a href="product-details.html">aspetur autodit autfugit</a></h4>
-										</div>
-										<div class="rating">
-											<div class="product-ratings d-inline-block align-middle">
-												<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   <span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   <span class="fa fa-stack"><i class="material-icons">star</i></span>
-											  <span class="fa fa-stack"><i class="material-icons off">star</i></span>
-											  <span class="fa fa-stack"><i class="material-icons off">star</i></span>							</div>
-											</div>
-										<div class="price">
-											<div class="regular-price">$100.00</div>
-											<div class="old-price">$150.00</div>
-										</div>
-										<div class="button-wrapper">
-										<div class="button-group text-center">
-											<button type="button" class="btn btn-primary btn-cart" data-target="#cart-pop" data-toggle="modal"><i class="material-icons">shopping_cart</i><span>Add to cart</span></button>
-										</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-layouts">
-								<div class="product-thumb">
-									<div class="image col-sm-4 float-left">
-										<a href="#">
-											<img src="img/products/03.jpg" alt="03"/>										</a>									</div>
-									<div class="thumb-description col-sm-8 text-left float-left">
-										<div class="caption">
-											<h4 class="product-title text-capitalize"><a href="product-details.html">magni dolores eosquies</a></h4>
-										</div>
-										<div class="rating">
-											<div class="product-ratings d-inline-block align-middle">
-												<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   <span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   <span class="fa fa-stack"><i class="material-icons">star</i></span>
-											  <span class="fa fa-stack"><i class="material-icons off">star</i></span>
-											  <span class="fa fa-stack"><i class="material-icons off">star</i></span>							</div>
-											</div>
-										<div class="price">
-											<div class="regular-price">$100.00</div>
-											<div class="old-price">$150.00</div>
-										</div>
-										<div class="button-wrapper">
-										<div class="button-group text-center">
-											<button type="button" class="btn btn-primary btn-cart" data-target="#cart-pop" data-toggle="modal"><i class="material-icons">shopping_cart</i><span>Add to cart</span></button>
-										</div>
-										</div>
-									</div>
-								</div>
-							</div>
-					</div>
-										<div class="sale-col">
-
-							<div class="product-layouts">
-								<div class="product-thumb">
-									<div class="image col-sm-4 float-left">
-										<a href="#">
-											<img src="img/products/04.jpg" alt="04"/>										</a>									</div>
-									<div class="thumb-description col-sm-8 text-left float-left">
-										<div class="caption">
-											<h4 class="product-title text-capitalize"><a href="product-details.html">voluptas nulla pariatur</a></h4>
-										</div>
-										<div class="rating">
-											<div class="product-ratings d-inline-block align-middle">
-												<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   <span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   <span class="fa fa-stack"><i class="material-icons">star</i></span>
-											  <span class="fa fa-stack"><i class="material-icons off">star</i></span>
-											  <span class="fa fa-stack"><i class="material-icons off">star</i></span>							</div>
-											</div>
-										<div class="price">
-											<div class="regular-price">$100.00</div>
-											<div class="old-price">$150.00</div>
-										</div>
-										<div class="button-wrapper">
-										<div class="button-group text-center">
-											<button type="button" class="btn btn-primary btn-cart" data-target="#cart-pop" data-toggle="modal"><i class="material-icons">shopping_cart</i><span>Add to cart</span></button>
-										</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-layouts">
-								<div class="product-thumb">
-									<div class="image col-sm-4 float-left">
-										<a href="#">
-											<img src="img/products/05.jpg" alt="05"/>										</a>									</div>
+										
+										<div class="image zoom">
+													<a href="product-details.html">
+														<img src="<?php echo $image; ?>" alt="01"/>
+														<img src="<?php echo $image; ?>" alt="02" class="second_image img-responsive"/>							
+													</a>
+												</div>																	</div>
 									<div class="thumb-description col-sm-8 text-left float-left">
 										<div class="caption">
 											<h4 class="product-title text-capitalize"><a href="product-details.html">aliquam quat voluptatem</a></h4>
 										</div>
 										<div class="rating">
-											<div class="product-ratings d-inline-block align-middle">
-												<span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   <span class="fa fa-stack"><i class="material-icons">star</i></span>
-											   <span class="fa fa-stack"><i class="material-icons">star</i></span>
-											  <span class="fa fa-stack"><i class="material-icons off">star</i></span>
-											  <span class="fa fa-stack"><i class="material-icons off">star</i></span>							</div>
-											</div>
 										<div class="price">
 											<div class="regular-price">$100.00</div>
 											<div class="old-price">$150.00</div>

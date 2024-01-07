@@ -1,3 +1,4 @@
+
 $(window).on("load",function(){
     $(".ttloading-bg").fadeOut("slow");
 })
@@ -216,9 +217,10 @@ $(document).ready(function() {
 		if ($class.hasClass('category') || $class.hasClass('off-canvas-left') || $class.hasClass('off-canvas-right')) {
 			$( "#slider-range" ).slider({
 				range: true,
-				min: 55,
-				max: 1000,
-				values: [ 55, 1000 ],
+				min: minValue,
+				max: maxValue,
+				step: 10000,
+				values: [ minValue, maxValue ],
 				slide: function( event, ui ) {
 					$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
 				}

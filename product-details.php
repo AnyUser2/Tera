@@ -1,3 +1,23 @@
+<?php
+
+$valor= $_GET['id'];
+
+require 'config/database.php';
+
+$db = new Database();
+$con = $db->connect();
+
+$sql = $con->prepare("SELECT id, title, descript, price FROM products WHERE active=1 and id=$valor");
+
+$sql->execute();
+
+$idSelected = $sql->fetchColumn('1');
+
+?>
+
+
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -12,6 +32,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,900" rel="stylesheet"> 
 	
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
+
 	<!-- Bootstrap core CSS -->
 	<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 	
@@ -21,6 +42,8 @@
 	<link href="css/owl-carousel.css" rel="stylesheet">
 	<link href="css/lightbox.css" rel="stylesheet">
     <!-- Custom styles for this template -->
+
+
   </head>
 
   <body id="product">
@@ -106,7 +129,7 @@
                       <tbody>
                         <tr>
                           <td class="text-center"><a href="#"><img src="img/products/01.jpg" alt="01" title="01"></a></td>
-                          <td class="text-left product-name"><a href="#">aliquam quaerat voluptatem</a> 						  	
+                          <td class="text-left product-name"><a href="#"><?php echo $idSelected ?></a> 						  	
 						  <div class="quantity float-left w-100">
                              <span class="cart-qty">1 × </span>
 							<span class="text-left price"> $20.00</span>
@@ -554,7 +577,7 @@
 				</div>
 				<div class="right-columm col-lg-7 col-md-7">
 					<div class="product-information">
-					<h4 class="product-title text-capitalize float-left w-100"><a href="product-details.html" class="float-left w-100">aliquam quaerat voluptatem</a></h4>
+					<h4 class="product-title text-capitalize float-left w-100"><a href="product-details.html" class="float-left w-100"><?php echo $idSelected ?></a></h4>
 					<div class="description">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis viverra purus, non viverra nulla. Sed vehicula libero eu lectus eleifend volutpat. Sed et placerat arcu. Proin mi leo, interdum eu tortor at, euismod gravida velit. Fusce non enim lectus. Duis euismod, lorem vitae pharetra rhoncus, ligula risus elementum nunc, at interdum eros nunc eget augue. Donec dapibus nec diam ut tempor. Duis malesuada neque turpis, ut congue ipsum euismod eget. Sed egestas ipsum enim, sed semper magna auctor non. 
 					</div>
@@ -752,7 +775,7 @@
 											<img src="img/products/02.jpg" alt="02" class="second_image img-responsive"/>										</a>									</div>
 									<div class="thumb-description">
 										<div class="caption">
-											<h4 class="product-title text-capitalize"><a href="product-details.html">aliquam quaerat voluptatem</a></h4>
+											<h4 class="product-title text-capitalize"><a href="product-details.html"><?php echo $idSelected ?></a></h4>
 										</div>
 										<div class="rating">
 											<div class="product-ratings d-inline-block align-middle">
@@ -1194,7 +1217,7 @@
                             </div>
 				</div>
 				<div class="col-md-6 product_content">
-					<h4 class="product-title text-capitalize">aliquam quaerat voluptatem</h4>
+					<h4 class="product-title text-capitalize"><?php echo $idSelected ?></h4>
 					<div class="rating">
 					<div class="product-ratings d-inline-block align-middle">
 																				<span class="fa fa-stack"><i class="material-icons">star</i></span>
@@ -1262,7 +1285,7 @@
 					<img src="img/products/01.jpg" class="img-responsive" alt="01">
 				</div>
 				<div class="col-md-7 col-xs-8 product-desc float-left">
-					<h4 class="product-title text-capitalize">aliquam quaerat voluptatem</h4>
+					<h4 class="product-title text-capitalize"><?php echo $idSelected ?></h4>
 					<div class="rating">
 					<div class="product-ratings d-inline-block align-middle">
 					<span class="fa fa-stack"><i class="material-icons">star</i></span>

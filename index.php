@@ -54,6 +54,9 @@ $minValue = $sql->fetchColumn();
     	<link href="css/jquery-ui.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     </head>
 
     <body id="category" class="category">
@@ -213,22 +216,30 @@ $minValue = $sql->fetchColumn();
 										$image = "img/products/" . $id . "/main.jpg";
 
 										if (!file_exists($image)) {
+										
 											$image = "img/no-photo.jpg";
 										}
 											
 									?>
+										<script>
+
+											function setProduct(id){
+												window.location = "product-details.php?id=" + id;
+											}
+
+										</script>
 
 										<div class="product-layouts col-lg-3 col-md-3 col-sm-6 col-xs-6">
 											<div class="product-thumb">
 												<div class="image zoom">
-													<a href="product-details.html">
+													<a onclick="setProduct('<?php echo $id?>')">
 														<img src="<?php echo $image; ?>" alt="01"/>
 														<img src="<?php echo $image; ?>" alt="02" class="second_image img-responsive"/>							
 													</a>
 												</div>
 												<div class="thumb-description">
 													<div class="caption">
-														<h4 class="product-title text-capitalize"><a href="product-details.html"><?php echo $row['title']; ?></a></h4>
+														<h4 class="product-title text-capitalize"><a href="product-details.php"><?php echo $row['title']; ?></a></h4>
 													</div>
 													<div class="price">
 														<div class="regular-price">$<?php echo number_format($row['price'], 0, '.', ','); ?></div>
@@ -269,14 +280,14 @@ $minValue = $sql->fetchColumn();
 								<div class="product-layouts">
 										<div class="product-thumb row">
 											<div class="image zoom col-xs-12 col-sm-5 col-md-4">
-												<a href="product-details.html" class="d-block position-relative">
+												<a href="product-details.php" class="d-block position-relative">
 													<img src="<?php echo $image; ?>" alt="01"/>
 													<img src="<?php echo $image; ?>" alt="02" class="second_image img-responsive"/>	
 												</a>
 											</div>
 											<div class="thumb-description col-xs-12 col-sm-7 col-md-8 position-static text-left">
 												<div class="caption">
-													<h4 class="product-title text-capitalize"><a href="product-details.html">aliquam quaerat voluptatem</a></h4>
+													<h4 class="product-title text-capitalize"><a href="product-details.php">aliquam quaerat voluptatem</a></h4>
 												</div>
 												<div class="description">
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus arcu turpis, quis sagittis orci dictum non. Etiam id eleifend erat. Donec sit amet nisl id nisi laoreet viverra in ac nibh.											</div>
@@ -332,7 +343,7 @@ $minValue = $sql->fetchColumn();
 										<div class="product-layouts">
 											<div class="product-thumb row">
 												<div class="image zoom col-xs-12 col-sm-3 col-md-2">
-													<a href="product-details.html" class="d-block position-relative">
+													<a href="product-details.php" class="d-block position-relative">
 														<img src="img/products/08.jpg" alt="08"/>
 														<img src="img/products/09.jpg" alt="09" class="second_image img-responsive"/>											
 													</a>										
@@ -340,7 +351,7 @@ $minValue = $sql->fetchColumn();
 												<div class="thumb-description col-xs-12 col-sm-9 col-md-10 position-static text-left">
 													<div class="sort-title col-md-5 col-sm-7 float-left">
 														<div class="caption">
-															<h4 class="product-title text-capitalize"><a href="product-details.html">suscipit laboriosam nisi</a></h4>
+															<h4 class="product-title text-capitalize"><a href="product-details.php">suscipit laboriosam nisi</a></h4>
 														</div>
 
 													<div class="description mb-10">
@@ -423,52 +434,6 @@ $minValue = $sql->fetchColumn();
 												</div>
 											</div>
 										</div>
-										<div class="sidebar-block color">
-											<h3 class="widget-title"><a data-toggle="collapse" href="#color" role="button" aria-expanded="true" aria-controls="color">Color</a></h3>
-											<div id="color" class="sidebar-widget-option-wrapper collapse show">
-												<div class="color-inner">
-													<div class="sidebar-widget-option">
-														<a href="#" style="background-color: #000000;"></a>
-														Black <span>(4)</span>
-													</div>
-													<div class="sidebar-widget-option">
-														<a href="#" style="background-color: #11426b;"></a>
-														Blue <span>(3)</span>
-													</div>
-													<div class="sidebar-widget-option">
-														<a href="#" style="background-color: #7d5a3c;"></a>
-														Brown <span>(3)</span>
-													</div>
-													<div class="sidebar-widget-option">
-														<a href="#" style="background-color: #ffffff;"></a>
-														White <span>(3)</span>
-													</div>
-												</div>
-                  							</div>
-										</div>
-										<div class="sidebar-block size">
-											<h3 class="widget-title"><a data-toggle="collapse" href="#size" role="button" aria-expanded="true" aria-controls="size">Size</a></h3>
-											<div id="size" class="sidebar-widget-option-wrapper collapse show">
-												<div class="size-inner">
-													<div class="sidebar-widget-option">
-														<input type="checkbox" id="size-1">
-														<label for="size-1">L <span>(4)</span></label>
-													</div>
-													<div class="sidebar-widget-option">
-														<input type="checkbox" id="size-2">
-														<label for="size-2">XS <span>(3)</span></label>
-													</div>
-													<div class="sidebar-widget-option">
-														<input type="checkbox" id="size-3">
-														<label for="size-3">S <span>(3)</span></label>
-													</div>
-													<div class="sidebar-widget-option">
-														<input type="checkbox" id="size-4">
-														<label for="size-4">Xl <span>(3)</span></label>
-													</div>
-												</div>
-                 						 	</div>
-										</div>
 									</div>
 								</div>
 								<div class="sidebar-left-banner left-sidebar w-100 float-left">
@@ -493,14 +458,14 @@ $minValue = $sql->fetchColumn();
 									<div class="image col-sm-4 float-left">
 										
 										<div class="image zoom">
-													<a href="product-details.html">
+													<a href="product-details.php">
 														<img src="<?php echo $image; ?>" alt="01"/>
 														<img src="<?php echo $image; ?>" alt="02" class="second_image img-responsive"/>							
 													</a>
 												</div>																	</div>
 									<div class="thumb-description col-sm-8 text-left float-left">
 										<div class="caption">
-											<h4 class="product-title text-capitalize"><a href="product-details.html">aliquam quat voluptatem</a></h4>
+											<h4 class="product-title text-capitalize"><a href="product-details.php">aliquam quat voluptatem</a></h4>
 										</div>
 										<div class="rating">
 										<div class="price">
